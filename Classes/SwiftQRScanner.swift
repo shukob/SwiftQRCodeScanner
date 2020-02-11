@@ -42,6 +42,8 @@ public class QRCodeScannerController: UIViewController, AVCaptureMetadataOutputO
     public var cancelImage: UIImage? = nil
     public var flashOnImage: UIImage? = nil
     public var flashOffImage: UIImage? = nil
+    public var alignMessage = "Align QR code within frame to scan"
+    public var cancelTitle = "Cancel"
     
     //Default Properties
     private let bottomSpace: CGFloat = 60.0
@@ -49,6 +51,7 @@ public class QRCodeScannerController: UIViewController, AVCaptureMetadataOutputO
     private let devicePosition: AVCaptureDevice.Position = .back
     private var delCnt: Int = 0
     
+
     //This is for adding delay so user will get sufficient time for align QR within frame
     private let delayCount: Int = 15
     
@@ -192,7 +195,7 @@ public class QRCodeScannerController: UIViewController, AVCaptureMetadataOutputO
         
         let noteText = CATextLayer()
         noteText.fontSize = 18.0
-        noteText.string = "Align QR code within frame to scan"
+        noteText.string = self.alignMessage
         noteText.alignmentMode = CATextLayerAlignmentMode.center
         noteText.contentsScale = UIScreen.main.scale
         noteText.frame = CGRect(x: spaceFactor, y: rect.origin.y + rect.size.height + 30, width: view.frame.size.width - (2.0 * spaceFactor), height: 22)
@@ -214,7 +217,7 @@ public class QRCodeScannerController: UIViewController, AVCaptureMetadataOutputO
             cancelButton.setImage(cancelImg, for: .normal)
         } else {
             cancelButton.frame = CGRect(x: view.frame.width/2 - btnWidthWhenCancelImageNil/2, y: view.frame.height - height, width: btnWidthWhenCancelImageNil, height: height)
-            cancelButton.setTitle("Cancel", for: .normal)
+            cancelButton.setTitle(self.cancelTitle, for: .normal)
         }
         cancelButton.contentMode = .scaleAspectFit
         cancelButton.addTarget(self, action: #selector(dismissVC), for:.touchUpInside)
